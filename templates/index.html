@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>インク残量</title>
+        <link rel="stylesheet" type="text/css" href="../static/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    </head>
+    <body>
+    <div id="container">
+        {% for chart in charts %}
+            <div id={{ chart.chart_id|safe }} class="chart" style="height:400px; width: 200px;"></div>
+            
+            <script>
+                $(document).ready(function() {
+                    var options = {
+                        "title": { "text": null },
+                        "legend": { "layout": "vertical" },
+                        "yAxis": { "title": { "text": null } },
+                        "credits": { "enabled": false },
+                        "chart": {{ chart.chart|safe }},
+                        "xAxis": {{ chart.xAxis|safe }},
+                        "series": {{ chart.series|safe }},
+                        "plotOptions": {{ chart.plot_options|safe }},
+                    };
+                    $({{ chart.chart_id|safe }}).highcharts(options);
+                });
+            </script>
+        {% endfor %}
+    </div>
+  </body>
+</html>
